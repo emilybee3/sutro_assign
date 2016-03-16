@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sutro Analytics</title>
+
+<!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css" type="text/css"/>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<!-- Plugin CSS -->
+    <link rel="stylesheet" href="static/css/animate.min.css" type="text/css"/>
+    <link rel="stylesheet" href="static/css/font-awesome/css/font-awesome.css"/>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
+
+<!-- Custom CSS -->
+    <!-- <link rel="stylesheet" href="static/css/resume.css" type="text/css"/> -->
+    <link rel="stylesheet" type="text/css" href="static/css/sutro.css"/>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
+
+
+</head>
+
+
+<body>
+
+
+
+<div class="container-fluid">
+
+<!-- NAV BAR -->
+
+    <div class="page-header">
+        <div class="row navRow">
+            <div class="col-xs-1" id="backArrow">
+                <a class="navButton hvr-wobble-vertical" href="#">
+                    <img class="navImage navImageArrow" align="left" src="static/img/back arrow.png">
+                </a>
+            </div>
+            <div class="col-xs-4 col-xs-offset-3" align="center" id="headerText">
+                <h3>Analytics</h3>
+            </div>
+            <div class="col-xs-1 col-xs-offset-11" id="accountSetting">
+                <a href="#" class="navButton hvr-wobble-vertical">
+                    <img class="navImage navImageAccount"align="right" src="static/img/account settings.png">
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" id="ataGlance">
+        <div class="col-xs-6 col-xs-offset-3">
+            <h3>AT A GLANCE</h3><br><br>
+        </div>
+    </div>
+
+    <div class="row" class="greyBar">
+        <div class="panel panel-default greyDiv">
+        </div>
+    </div>
+
+<div class="row">
+ <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">Miles Driven This Week</a>
+        </h4>
+        <div class="milesGraph">
+            <script>
+
+              var margin = {top: 20, right: 20, bottom: 70, left: 40},
+                  width = 600 - margin.left - margin.right,
+                  height = 300 - margin.top - margin.bottom;
+
+              // Parse the date / time
+              var parseDate = d3.time.format("%Y-%m").parse;
+
+              var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+
+              var y = d3.scale.linear().range([height, 0]);
+
+              var xAxis = d3.svg.axis()
+                  .scale(x)
+                  .orient("bottom")
+                  .tickFormat(d3.time.format("%Y-%m"));
+
+              var yAxis = d3.svg.axis()
+                  .scale(y)
+                  .orient("left")
+                  .ticks(10);
+
+              var svg = d3.select("body").append("svg")
+                  .attr("width", width + margin.left + margin.right)
+                  .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                  .attr("transform", 
+                        "translate(" + margin.left + "," + margin.top + ")");
+
+              d3.csv("static/js/bar-dat-miles.csv", function(error, data) {
+
+                  data.forEach(function(d) {
+                      d.date = parseDate(d.date);
+                      d.value = +d.value;
+                  });
+                
+                x.domain(data.map(function(d) { return d.date; }));
+                y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(xAxis)
+                  .selectAll("text")
+                    .style("text-anchor", "end")
+                    .attr("dx", "-.8em")
+                    .attr("dy", "-.55em")
+                    .attr("transform", "rotate(-90)" );
+
+                svg.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxis)
+                  .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", ".71em")
+                    .style("text-anchor", "end")
+                    .text("Value ($)");
+
+                svg.selectAll("bar")
+                    .data(data)
+                  .enter().append("rect")
+                    .style("fill", "steelblue")
+                    .attr("x", function(d) { return x(d.date); })
+                    .attr("width", x.rangeBand())
+                    .attr("y", function(d) { return y(d.value); })
+                    .attr("height", function(d) { return height - y(d.value); });
+
+              });
+
+              </script>
+        </div>
+      </div>
+      
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="panel-body">More Data</div>
+        <div class="panel-footer">More Data</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" class="greyBar">
+        <div class="panel panel-default greyDiv">
+        </div>
+    </div>
+
+<div class="row">
+   <div class="panel-group">
+    <div class="panel panel-default">
+      
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse2">Time Spent Per Job</a>
+        </h4>
+        <div class="timeGraph">
+            TIME GRAPH
+        </div>
+      </div>
+      
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">Panel Body</div>
+        <div class="panel-footer">Panel Footer</div>
+      </div>
+   
+    </div>
+  </div>
+</div>
+
+  <div class="row" class="greyBar">
+        <div class="panel panel-default greyDiv">
+        </div>
+    </div>
+
+<div class="row">
+ <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">Dollars Spent This Week</a>
+        </h4>
+        <div class="dollarsAmount">
+            LOTSA CASH
+        </div>
+      </div>
+
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="panel-body">DOLLAS GRAPH
+        </div>
+        <div class="panel-footer">Panel Footer</div>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+<div class="row" class="greyBar">
+    <div class="panel panel-default greyDiv">
+    </div>
+</div>
+
+<div class="row">
+ <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">Total Clients This Year</a>
+        </h4>
+        <div class="barGraphVertical">
+        </div>
+      </div>
+      
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="panel-body">Panel Body</div>
+        <div class="panel-footer">Panel Footer</div>
+      </div>
+    </div>
+  
+  </div>
+</div>
+
+<div class="row" class="greyBar">
+    <div class="panel panel-default greyDiv">
+    </div>
+</div>
+
+<!-- <footer> -->
+<div class="row footRow">
+            <div class="col-xs-1" id="">
+                <a href="#" class="navIcon hvr-wobble-vertical">
+
+                    <img class="navImage navImageSchedule" align="left" src="static/img/schedule.png">
+                </a>
+            </div>
+            <div class="col-xs-4 col-xs-offset-3" align="center">
+                <a href="#" class="navIcon hvr-wobble-vertical">
+                    <img class="navImage navImageAccount"align="center" src="static/img/clipboard.png">
+                </a>
+            </div>
+            <div class="col-xs-1 col-xs-offset-11" id="accountSetting">
+                <a href="#" class="navIcon hvr-wobble-vertical">
+
+                    <img class="navImage navImageAnalytics"align="right" src="static/img/analytics.png">
+                </a>
+            </div>
+        </div>
+          
+<!-- </footer> -->
+
+
+</div> 
+
+
+
+
+
+
+
+
+<!-- At a Glance header  -->
+
+<!-- Miles per Week Horizontal Bar Graph -->
+
+<!-- Time per Job line graph -->
+    
+
+
+<!-- Dollars per week -->
+    
+    <!-- Pie chart and chems -->
+
+</body>

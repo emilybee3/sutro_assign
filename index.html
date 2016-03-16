@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sutro Analytics</title>
+
+<!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css" type="text/css"/>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+<!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<!-- Plugin CSS -->
+    <link rel="stylesheet" href="static/css/animate.min.css" type="text/css"/>
+    <link rel="stylesheet" href="static/css/font-awesome/css/font-awesome.css"/>
+    
+<!-- Libraries -->
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<script src="static/js/horizBarChart.js"></script>
+
+
+<!-- Custom CSS -->
+    <!-- <link rel="stylesheet" href="static/css/resume.css" type="text/css"/> -->
+    <link rel="stylesheet" type="text/css" href="static/css/sutro.css"/>
+
+
+
+</head>
+
+
+<body>
+
+
+
+<div class="container-fluid">
+
+<!-- NAV BAR -->
+
+    <div class="page-header">
+        <div class="row navRow">
+            <div class="col-xs-1" id="backArrow">
+                <a class="navButton hvr-wobble-vertical" href="#">
+                    <img class="navImage navImageArrow" align="left" src="static/img/back arrow.png">
+                </a>
+            </div>
+            <div class="col-xs-4 col-xs-offset-3" align="center" id="headerText">
+                <h3>Analytics</h3>
+            </div>
+            <div class="col-xs-3 col-xs-offset-9" id="accountSetting">
+                <a href="#" class="navButton hvr-wobble-vertical">
+                    <img class="navImage navImageAccount"align="right" src="static/img/account settings.png">
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" id="ataGlance">
+        <div class="col-xs-6 col-xs-offset-3">
+            <h3>AT A GLANCE</h3><br><br>
+        </div>
+    </div>
+
+    <div class="row" class="greyBar">
+        <div class="panel panel-default greyDiv">
+        </div>
+    </div>
+
+<div class="row">
+ <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">Miles Driven This Week</a>
+        </h4>
+        <div class="chartHolder">
+          <ul class="chart">
+
+  <li class="title" title="My Bar Chart"> My Bar Chart</li>
+
+  <li class="current" title="Label 1"><span class="bar" data-number="38000"></span><span class="number">38,000</span></li>
+
+  <li class="past" title="Label 2"><span class="bar" data-number="28500"></span><span class="number">28,500</span></li>
+
+  <li class="past" title="Label 3"><span class="bar" data-number="18500"></span><span class="number">18,500</span></li>
+
+  <li class="past" title="Label 4"><span class="bar" data-number="8000"></span><span class="number">8,000</span></li>
+
+  <li class="past" title="Label 5"><span class="bar" data-number="14000"></span><span class="number">14,000</span></li>
+
+  <li class="past" title="Label 6"><span class="bar" data-number="24000"></span><span class="number">24,000</span></li>
+
+  <li class="past" title="Label 7"><span class="bar" data-number="34000"></span><span class="number">34,000</span></li>
+
+  <li class="past" title="Label 8"><span class="bar" data-number="12000"></span><span class="number">12,000</span></li>
+
+  <li class="past" title="Label 9"><span class="bar" data-number="14000"></span><span class="number">14,000</span></li>
+
+</ul>
+<script>
+$(document).ready(function(){
+
+$('.chart').horizBarChart({
+
+  selector: '.bar',
+
+  speed: 2000
+
+});
+
+});
+
+</script>
+        </div>
+    </div>
+  </div>
+</div>
+
+    <div class="row" class="greyBar">
+        <div class="panel panel-default greyDiv">
+        </div>
+    </div>
+
+<div class="row">
+   <div class="panel-group">
+    <div class="panel panel-heading">
+      
+      <div class="row">
+        <div class="col-xs-9">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapse2">Time Spent Per Job</a>
+          </h4>
+        </div>
+      </div>
+        
+      <div class="row">
+        <div class="col-xs-9 col-xs-offset-2 col-md-3 col-md-offset-4">
+          <div class="timeGraph">
+              <canvas id="timeGraph" align:"left"></canvas>
+              <script>
+                
+                var timeData = {
+                  labels : ["a", "b", "c", "d", "e", "f", "g", "h"],
+                  datasets : [
+                    {
+                    fillColor : "rgba(172,194,132,0.4)",
+                    strokeColor : "orange",
+                    pointColor : "gray",
+                    pointStrokeColor : "grey",
+                    data : [120,100,175,90,200,140,250,80]
+                    }
+                  ]
+                }
+
+                $('#timeGraph').replaceWith('<canvas id="timeGraph4"></canvas>');
+
+                var timeGraph = document.getElementById("timeGraph4").getContext("2d");
+                var timeChart = new Chart(timeGraph).Line(timeData, {
+                responsive: false,
+                scaleShowGridLines : false,
+                 scaleShowHorizontalLines: false,
+                 scaleShowVerticalLines: false,
+                 barShowStroke : false,
+                 showScale: false,
+                showTooltips: false,
+                bezierCurve : false,
+                datasetFill : false});
+
+              </script>
+          </div>
+        </div> 
+      </div>
+  </div>
+      
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+         <div class="col-xs-12 col-md-3 col-md-offset-4">
+          Here is some more information about clients.
+            <ul>
+              <li> Here is some more information </li>
+              <li> About things of interest </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+   
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="row" class="greyBar">
+        <div class="panel panel-default greyDiv">
+        </div>
+    </div>
+
+<div class="row">
+ <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+   
+  <div class= "col-xs-9">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Dollars Spent This Week
+        </a>
+      </h4>
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-xs-3 col-xs-offset-6 col-md-2 col-md-offset-5">
+        <h1>$3,257.23</h1>
+
+      </div>
+    </div>
+    
+
+  <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-4">
+        <div class="pieChartDiv">
+          <canvas id="myChart">
+          </canvas>
+          <div id="js-legend" class="chart-legend"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  </div>
+</div>
+</div>
+
+<script>
+
+
+var data = [
+   {
+    value: 32,
+    color: "blue",
+    label: "DICHLOR"
+}, {
+    value: 2,
+    color: "pink",
+    label: "TRICHLOR"
+}, {
+    value: 26,
+    color: "red",
+    label: "MURIATIC ACID"
+}, {
+  value: 36,
+  color:"green",
+  label:"GAS"
+},{
+  value:2,
+  color:"orange",
+  label:"BICARB"
+},{
+  value:6,
+  color:"purple",
+  label:"SODA ASH"
+}
+
+
+
+];
+
+
+var piectx = document.getElementById("myChart").getContext("2d");
+
+
+ var myChart=null;
+  $('#collapseOne').on('shown.bs.collapse', function () {
+    console.log("asdasdas");
+    setTimeout(function(){
+    if(myChart == null)
+    myChart = new Chart(piectx).Pie(data, {
+      segmentShowStroke: false,
+    animateRotate: true,
+    animateScale: false,
+    tooltipTemplate: "<%= value %>%",
+    tooltipFillColor: "black",
+
+      onAnimationComplete: function()
+    {
+        this.showTooltip(this.segments, true);
+
+         tooltipEvents: []
+
+          showTooltips: true;
+
+        document.getElementById('js-legend').innerHTML = myChart.generateLegend();
+
+
+          
+    },
+         
+
+    });},200);
+  })
+
+
+</script>
+     
+
+<div class="row" class="greyBar">
+    <div class="panel panel-default greyDiv">
+    </div>
+</div>
+
+<div class="row">
+ <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+      
+      <div class="row">
+        <div class="col-xs-9 col-xs-offset-1">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" align="right" href="#collapse4">Total Clients This Year</a>
+          </h4>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-xs-9 col-xs-offset-2 col-md-3 col-md-offset-4">
+        <div class="barGraphVertical">
+          <canvas id="canvasClients" align:"left">
+          </canvas>
+
+            <script>
+               var milesData = {
+                labels: ["a", "b", "c", "d", "e", "f", "g", "h","h","j", "h", "l"],
+                datasets: [{
+                  fillColor: "orange",
+                  // strokeColor: "black",
+                  data: [10, 9, 12, 30, 34, 8, 20, 30, 33, 35, 10, 30]
+                }]
+              }
+
+              $('#canvasClients').replaceWith('<canvas id="canvasBarras"></canvas>');
+
+              var ctx = document.getElementById("canvasBarras").getContext("2d");
+              var milesChart = new Chart(ctx).Bar(milesData, {
+                responsive: true,
+                scaleShowGridLines : false,
+                 scaleShowHorizontalLines: false,
+                 scaleShowVerticalLines: false,
+                 barShowStroke : false,
+                 showScale: false,
+                showTooltips: false,
+                onAnimationComplete: function () {
+
+        var ctx = this.chart.ctx;
+        ctx.font = this.scale.font;
+        ctx.fillStyle = this.scale.textColor
+        ctx.textAlign = "center";
+        ctx.textBaseline = "center";
+
+        this.datasets.forEach(function (dataset) {
+            dataset.bars.forEach(function (bar) {
+                ctx.fillText(bar.label, bar.x, bar.y + 20);
+            });
+        })
+    }
+});
+            
+
+            </script>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+      
+      <div id="collapse4" class="panel-collapse collapse">
+        <div class="panel-body">
+          <div class="col-xs-12 col-md-3 col-md-offset-4">
+          Here is some more information about clients.
+            <ul>
+              <li> Here is some more information </li>
+              <li> About things of interest </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+</div>
+
+<div class="row" class="greyBar">
+    <div class="panel panel-default greyDiv">
+    </div>
+</div>
+
+<!-- <footer> -->
+<div class="row footRow">
+            <div class="col-xs-1" id="">
+                <a href="#" class="navIcon hvr-wobble-vertical">
+
+                    <img class="navImage navImageSchedule" align="left" src="static/img/schedule.png">
+                </a>
+            </div>
+            <div class="col-xs-4 col-xs-offset-3" align="center">
+                <a href="#" class="navIcon hvr-wobble-vertical">
+                    <img class="navImage navImageAccount"align="center" src="static/img/clipboard.png">
+                </a>
+            </div>
+            <div class="col-xs-3 col-xs-offset-9 col-md-1 col-md-offset-11" id="accountSetting">
+                <a href="#" class="navIcon hvr-wobble-vertical">
+
+                    <img class="navImage navImageAnalytics"align="right" src="static/img/analytics.png">
+                </a>
+            </div>
+        </div>
+          
+<!-- </footer> -->
+
+
+</div> 
+
+
+
+
+
+
+
+
+<!-- At a Glance header  -->
+
+<!-- Miles per Week Horizontal Bar Graph -->
+
+<!-- Time per Job line graph -->
+    
+
+
+<!-- Dollars per week -->
+    
+    <!-- Pie chart and chems -->
+
+</body>
+
